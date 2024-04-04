@@ -1,0 +1,42 @@
+inputs:
+  shell:
+    default: bash
+    required: false
+  sonar_host_url:
+    required: true
+  sonar_project_key:
+    required: true
+  sonar_project_token:
+    required: true
+  version:
+    default: 0.0.0
+    required: false
+  workspace:
+    default: $github.workspace
+    required: false
+runs:
+  steps:
+    - name: Clean workspace
+      run: dotnet clean --configuration Release --nologo --verbosity normal *.sln
+      shell: $inputs.shell
+      working-directory: $inputs.workspace
+    - name: Restore dependencies
+      run: dotnet restore --nologo --verbosity normal *.sln
+      shell: $inputs.shell
+      working-directory: $inputs.workspace
+    - name: Collect code quality data
+      run: dotnet sonarscanner begin /d:sonar.cs.vscoveragexml.reportsPaths=.artifacts/coverage/report.xml /d:sonar.host.url=$inputs.sonar_host_url /d:sonar.token=$inputs.sonar_project_token /d:sonar.verbose=true /k:$inputs.sonar_project_key /v:$inputs.version
+      shell: $inputs.shell
+      working-directory: $inputs.workspace
+    - name: Build dotnet solution
+      run: dotnet build --configuration Release --nologo --no-restore --verbosity normal -p:Version=$inputs.version *.sln
+      shell: $inputs.shell
+      working-directory: $inputs.workspace
+    - name: Collect code coverage data
+      run: dotnet-coverage collect "dotnet test --configuration Release --no-build --nologo --no-restore --verbosity normal *.Tests.Unit.csproj" -f xml -o .artifacts/coverage/report.xml
+      shell: $inputs.shell
+      working-directory: $inputs.workspace
+    - name: Publish code quality data
+      run: dotnet sonarscanner end /d:sonar.token=$inputs.sonar_project_token
+      shell: $inputs.shell
+      working-directory: $inputs.workspace
