@@ -1,0 +1,16 @@
+inputs:
+  shell:
+    default: bash
+    required: false
+  version:
+    default: 0.0.0
+    required: false
+  workspace:
+    default: $github.workspace
+    required: false
+runs:
+  steps:
+    - name: Build nuget packages
+      run: dotnet pack --configuration Release --include-source --include-symbols --nologo --no-restore --output .artifacts/packages --verbosity normal -p:PackageVersion=$inputs.version *.sln
+      shell: $inputs.shell
+      working-directory: $inputs.workspace
