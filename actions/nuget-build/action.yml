@@ -9,6 +9,7 @@ inputs:
     default: $github.workspace
     required: false
 runs:
+  using: "composite"
   steps:
     - name: Build nuget packages
       run: dotnet pack --configuration Release --include-source --include-symbols --nologo --no-restore --output .artifacts/packages --verbosity normal -p:PackageVersion=$inputs.version *.sln
