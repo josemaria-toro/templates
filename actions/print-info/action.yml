@@ -1,0 +1,25 @@
+inputs:
+  shell:
+    default: bash
+    required: false
+  workspace:
+    default: $github.workspace
+    required: false
+runs:
+  using: "composite"
+  steps:
+    - name: Global information
+      run: |
+        echo "Shell: $SHELL"
+        echo "Path: $PATH"
+        echo "Path (current): $PWD"
+        echo "Path (dotnet): $DOTNET_ROOT"
+        echo "User (logged): $LOGNAME"
+        echo "User (current): $USER"
+        echo "User (home path): $HOME"
+      shell: $inputs.shell
+      working-directory: $inputs.workspace
+    - name: .NET information
+      run: dotnet --info
+      shell: $inputs.shell
+      working-directory: $inputs.workspace
