@@ -10,13 +10,11 @@ runs:
   steps:
     - name: Global information
       run: |
-        echo "Shell: $SHELL"
-        echo "Path: $PATH"
-        echo "Path (current): $PWD"
-        echo "Path (dotnet): $DOTNET_ROOT"
-        echo "User (logged): $LOGNAME"
-        echo "User (current): $USER"
-        echo "User (home path): $HOME"
+        echo "Current directory: $PWD"
+        echo "Current user: $USER"
+        echo "Current user home directory: $HOME"
+        echo "Logged user: $LOGNAME"
+        echo ".NET root directory: $DOTNET_ROOT"
       shell: $inputs.shell
       working-directory: $inputs.workspace
     - name: .NET information
