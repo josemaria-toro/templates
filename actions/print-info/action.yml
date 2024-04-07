@@ -9,7 +9,7 @@ runs:
   using: "composite"
   steps:
     - name: Global information
-      run: echo "Current directory: $PWD"
+      run: echo 'Current directory: $PWD'
         # echo "Current user: $USER"
         # echo "Current user home directory: $HOME"
         # echo "Logged user: $LOGNAME"
