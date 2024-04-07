@@ -9,12 +9,11 @@ runs:
   using: "composite"
   steps:
     - name: Global information
-      run: |
-        echo "Current directory: $PWD"
-        echo "Current user: $USER"
-        echo "Current user home directory: $HOME"
-        echo "Logged user: $LOGNAME"
-        echo ".NET root directory: $DOTNET_ROOT"
+      run: echo "Current directory: $PWD"
+        # echo "Current user: $USER"
+        # echo "Current user home directory: $HOME"
+        # echo "Logged user: $LOGNAME"
+        # echo ".NET root directory: $DOTNET_ROOT"
       shell: $inputs.shell
       working-directory: $inputs.workspace
     - name: .NET information
