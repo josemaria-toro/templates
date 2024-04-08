@@ -10,6 +10,6 @@ runs:
       with:
         compression-level: 9
         if-no-files-found: warn
-        name: packages-$inputs.version
+        name: packages-${{ inputs.version }}
         overwrite: true
-        path: .artifacts/packages
+        path: ${{ runner.workspace }}/.artifacts/packages
