@@ -5,6 +5,10 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Show info
+      run: env
+      shell: ${{ inputs.shell }}
+      working-directory: ${{ github.action_path }}
     - name: Install .NET Sdk v6.0
       run: dotnet-install.sh --architecture arm64 --channel 6.0 --install-dir /opt/dotnet --no-path --os linux --version latest
       shell: ${{ inputs.shell }}
