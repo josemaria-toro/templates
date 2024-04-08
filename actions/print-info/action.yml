@@ -14,7 +14,7 @@ runs:
         # echo "Current user home directory: $HOME"
         # echo "Logged user: $LOGNAME"
         # echo ".NET root directory: $DOTNET_ROOT"
-      shell: $inputs.shell
+      shell: bash
       working-directory: $inputs.workspace
     - name: .NET information
       run: dotnet --info
