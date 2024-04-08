@@ -8,6 +8,10 @@ inputs:
 runs:
   using: "composite"
   steps:
+    - name: Setup installer
+      run: chmod +x ${{ github.action_path }}/dotnet-install.sh
+      shell: ${{ inputs.shell }}
+      working-directory: ${{ inputs.workspace }}
     - name: Install .NET Sdk v6.0
       run: ${{ github.action_path }}/dotnet-install.sh --architecture arm64 --channel 6.0 --install-dir /opt/dotnet --no-path --os linux --version latest
       shell: ${{ inputs.shell }}
